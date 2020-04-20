@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Calculator</title>
+    <style>
+        body{
+            max-width: 400px;
+            margin: 40px auto 40px auto;
+            background-color: #E0AF33;
+        }
+        #calculator{
+            border-radius: 4px;
+            box-shadow: 0 19px 19px 0 rgba(0, 0, 0, 0.3), 0 15px 6px 0 rgba(0, 0, 0, 0.22);
+        }
+        #result,
+        #result-num{
+            font-size: 26px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border-bottom: 0px solid #222;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            outline: none;
+            overflow-x: scroll;
+            text-align: right;
+            cursor: unset;
+            background-color: unset;
+            color: white;
+        }
+        #result-num{
+            font-size: 40px;
+            font-family: sans-serif;
+            font-weight: 200;
+            color: #E0AF33;
+            padding-bottom: 0;
+        }
+        #pad{
+            display: grid;
+            grid-template-columns: repeat(4, minmax(60px, 1fr));
+            background-color: #363636;
+            grid-gap: 14px 18px;
+            padding: 50px 16px;
+            border-radius: 60px 60px 0px 0px;
+        }
+        .input-btn{
+            cursor: pointer;
+            font-size: 20px;
+            display: grid;
+            padding: 20px 10px;
+            justify-items: center;
+            align-items: center;
+            color: #FAFAFA;
+            font-size: 30px;
+            font-family: sans-serif;
+            font-weight: 300;
+            border-radius: 48px;
+        }
+        .input-btn:hover{
+            background-color: red;
+            transition: 0.4s;
+        }
+        .string,
+        .string-result{
+            display: block;
+            text-align: center;
+        }
+        
+        .input-btn:nth-child(4n){
+            box-shadow: 0 14px 14px 0 rgba(0, 0, 0, 0.25), 0 10px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+        .input-btn:last-child{
+            background-color: #E0AF33;
+        }
+        .textFont{
+            font-size: 30px;
+        }
+        .background-color,
+        #calculator{
+            background-color: black;
+        }
+        .cal-text{
+            color: white;
+            font-size: 28px;
+            font-family: sans-serif;
+            padding: 30px 0px 0px 20px;
+            display: inline-block;
+        }
+        span.result-val {
+            font-family: sans-serif;
+        }
+        .background-color{
+            padding-bottom: 20px;
+        }
+        .default-v{
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- <button class="textFont">12120129</button> -->
+    <!-- <input id="app" placeholder="type"/>
+    <button class="add">Add</button> -->
+    <div class="element">
+
+    </div>
+    <div id="calculator">
+        <div class="background-color">
+            <span class="cal-text">Calculator</span>
+            <div id="result-num" placeholder="0">
+               <span class="width-res"> = <span class="total-val">0</span></span>
+            </div>
+            <div id="result" placeholder="0">
+                <span class="result-val"></span>
+                <span class="default-v">0</span>
+            </div>
+        </div>
+        <div id="pad">
+        <div class="input-btn input-btn-val" data-value="AC" id="clearAll">AC</div>
+          <div class="input-btn input-btn-val" data-value="c" id="singleClear">C</div>
+          
+          <div class="input-btn input-btn-val" data-value="%">%</div>
+          <div class="input-btn input-btn-val" data-value="/">&divide;</div>
+          <div class="input-btn input-btn-val" data-value="7">7</div>
+          <div class="input-btn input-btn-val" data-value="8">8</div>
+          <div class="input-btn input-btn-val" data-value="9">9</div>
+          <div class="input-btn input-btn-val" data-value="*">x</div>
+          <div class="input-btn input-btn-val" data-value="4">4</div>
+          <div class="input-btn input-btn-val" data-value="5">5</div>
+          <div class="input-btn input-btn-val" data-value="6">6</div>
+          <div class="input-btn input-btn-val" data-value="-">-</div>
+          <div class="input-btn input-btn-val" data-value="1">1</div>
+          <div class="input-btn input-btn-val" data-value="2">2</div>
+          <div class="input-btn input-btn-val" data-value="3">3</div>
+          <div class="input-btn input-btn-val" data-value="+">+</div>
+          <div class="input-btn input-btn-val" data-value=".">.</div>
+          <div id="zero" class="input-btn input-btn-val" data-value="0">0</div>
+          <div id="bracket" class="input-btn input-btn-val" data-value="()">( )</div>
+          <div id="equal" class="input-btn input-btn-val" data-value="=">=</div>
+        </div>
+    </div>
+
+
+    <script>
+        window.onload = function(){
+            // var font = 30;
+            // document.querySelector(".textFont").addEventListener("click", function(){
+            //     font--
+            //     this.style.fontSize = font + "px";
+            // })
+            var resBox = document.querySelector(".result-val");
+            var allEl = document.getElementsByClassName("input-btn-val");
+            var numm = 0;
+            var brack = 0;
+            for(var countI = 0; countI < allEl.length; countI++){
+                allEl[countI].onclick = function(){
+                    var attr = this.getAttribute("data-value");
+                    if(attr == "AC"){
+                        resBox.innerText = null;
+                    }else if(attr == "="){
+                        if(resBox.innerText){
+                            resBox.innerText = eval(resBox.innerText);
+                        }
+                    }else if(attr == "+" || attr == "-" || attr == "*" || attr == "/" || attr == "%" || attr == "()"){
+                        if(numm == 0 && resBox.innerText){
+                            resBox.innerText += attr;
+                            numm=1;
+                        }
+                    }else if(attr == "c"){
+                        resBox.innerText = resBox.innerText.substring(0, resBox.innerText.length -1);
+                        document.querySelector(".total-val").innerText = eval(resBox.innerText);
+                    }else{
+                        resBox.innerText += attr;
+                        numm=0;
+                        document.querySelector(".total-val").innerText = eval(resBox.innerText);
+                        document.querySelector(".default-v").innerText = "";
+                    }
+
+                    if(resBox.innerText.length > 0){
+                        document.querySelector(".default-v").innerText = "";
+                    }else{
+                        document.querySelector(".default-v").innerText = "0";
+                        document.querySelector(".total-val").innerText = "0";
+                    }
+                    
+                }
+            }
+        }
+    </script>
+</body>
+</html>
