@@ -32,6 +32,10 @@
             background-color: unset;
             color: white;
         }
+        #result{
+            width: max-content;
+            margin-left: auto;
+        }
         #result-num{
             font-size: 40px;
             font-family: sans-serif;
@@ -76,7 +80,6 @@
         }
         .input-btn:last-child{
             background-color: #E0AF33;
-            grid-area: 5/4;
         }
         .textFont{
             font-size: 30px;
@@ -101,7 +104,15 @@
         .default-v{
             font-family: sans-serif;
         }
-        
+        .width-res{
+            display: flex;
+            justify-content: flex-end;
+            width: max-content;
+            margin-left: auto;
+        }
+        span.equal {
+        padding-right: 8px;
+        }
         
         @media (max-width: 500px){
             body{
@@ -139,27 +150,26 @@
             </div>
         </div>
         <div id="pad">
-        <div class="input-btn input-btn-val" data-value="AC" id="clearAll">AC</div>
-          <div class="input-btn input-btn-val" data-value="c" id="singleClear">C</div>
-          
-          <div class="input-btn input-btn-val" data-value="%">%</div>
-          <div class="input-btn input-btn-val" data-value="/">&divide;</div>
-          <div class="input-btn input-btn-val" data-value="7">7</div>
-          <div class="input-btn input-btn-val" data-value="8">8</div>
-          <div class="input-btn input-btn-val" data-value="9">9</div>
-          <div class="input-btn input-btn-val" data-value="*">x</div>
-          <div class="input-btn input-btn-val" data-value="4">4</div>
-          <div class="input-btn input-btn-val" data-value="5">5</div>
-          <div class="input-btn input-btn-val" data-value="6">6</div>
-          <div class="input-btn input-btn-val" data-value="-">-</div>
-          <div class="input-btn input-btn-val" data-value="1">1</div>
-          <div class="input-btn input-btn-val" data-value="2">2</div>
-          <div class="input-btn input-btn-val" data-value="3">3</div>
-          <div class="input-btn input-btn-val" data-value="+">+</div>
-          <div id="zero" class="input-btn input-btn-val" data-value="0">0</div>
-          <div class="input-btn input-btn-val" data-value=".">.</div>
-<!--           <div id="bracket" class="input-btn input-btn-val" data-value="()">( )</div> -->
-          <div id="equal" class="input-btn input-btn-val" data-value="=">=</div>
+            <div class="input-btn input-btn-val" data-value="AC" id="clearAll">AC</div>
+            <div class="input-btn input-btn-val" data-value="c" id="singleClear">C</div>
+            <div class="input-btn input-btn-val" data-value="%">%</div>
+            <div class="input-btn input-btn-val" data-value="/">&divide;</div>
+            <div class="input-btn input-btn-val" data-value="7">7</div>
+            <div class="input-btn input-btn-val" data-value="8">8</div>
+            <div class="input-btn input-btn-val" data-value="9">9</div>
+            <div class="input-btn input-btn-val" data-value="*">x</div>
+            <div class="input-btn input-btn-val" data-value="4">4</div>
+            <div class="input-btn input-btn-val" data-value="5">5</div>
+            <div class="input-btn input-btn-val" data-value="6">6</div>
+            <div class="input-btn input-btn-val" data-value="-">-</div>
+            <div class="input-btn input-btn-val" data-value="1">1</div>
+            <div class="input-btn input-btn-val" data-value="2">2</div>
+            <div class="input-btn input-btn-val" data-value="3">3</div>
+            <div class="input-btn input-btn-val" data-value="+">+</div>
+            <div id="zero" class="input-btn input-btn-val" data-value="0">0</div>
+            <div class="input-btn input-btn-val" data-value=".">.</div>
+<!--             <div id="bracket" class="input-btn input-btn-val" data-value="()">( )</div> -->
+            <div id="equal" class="input-btn input-btn-val" data-value="=">=</div>
         </div>
     </div>
 
