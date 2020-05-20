@@ -128,7 +128,10 @@
         <div class="background-color">
             <span class="cal-text">Calculator</span>
             <div id="result-num" placeholder="0">
-               <span class="width-res"> = <span class="total-val">0</span></span>
+               <span class="width-res"> 
+                  <span class="equal"> = </span>
+                   <span class="total-val">0</span>
+                </span>
             </div>
             <div id="result" placeholder="0">
                 <span class="result-val"></span>
@@ -163,44 +166,69 @@
 
     <script>
         window.onload = function(){
-            // var font = 30;
-            // document.querySelector(".textFont").addEventListener("click", function(){
-            //     font--
-            //     this.style.fontSize = font + "px";
-            // })
+            var font = 36;
             var resBox = document.querySelector(".result-val");
             var allEl = document.getElementsByClassName("input-btn-val");
             var numm = 0;
             var brack = 0;
             for(var countI = 0; countI < allEl.length; countI++){
                 allEl[countI].onclick = function(){
+                    if(document.querySelector(".total-val").innerText.length >= 16){
+                        // alert("Sorry! no more digit allowed")
+                        // return false;
+                    }
                     var attr = this.getAttribute("data-value");
                     if(attr == "AC"){
-                        resBox.innerText = null;
+                        resBox.innerText = "";
                     }else if(attr == "="){
-                        if(resBox.innerText){
+                        if(resBox.innerText.length > 0){
                             resBox.innerText = eval(resBox.innerText);
                         }
-                    }else if(attr == "+" || attr == "-" || attr == "*" || attr == "/" || attr == "%" || attr == "()"){
-                        if(numm == 0 && resBox.innerText){
+                    }else if(attr == "+" || attr == "-" || attr == "*" || attr == "/" || attr == "%"){
+                        if(numm == 0 && resBox.innerText.length > 0){
                             resBox.innerText += attr;
                             numm=1;
                         }
                     }else if(attr == "c"){
                         resBox.innerText = resBox.innerText.substring(0, resBox.innerText.length -1);
                         document.querySelector(".total-val").innerText = eval(resBox.innerText);
+                    }else if(attr == "()" && resBox.innerText.length < 0){
+                        console.log("yes");
+                        if(brack == 0){
+                            // return false;
+                            resBox.innerText += "(";
+                        }else{
+                            // return true;
+                            resBox.innerText += ")";
+                        }
                     }else{
                         resBox.innerText += attr;
-                        numm=0;
+                        brack = 0;
+                        numm = 0;
                         document.querySelector(".total-val").innerText = eval(resBox.innerText);
                         document.querySelector(".default-v").innerText = "";
                     }
-
+                    
                     if(resBox.innerText.length > 0){
                         document.querySelector(".default-v").innerText = "";
                     }else{
                         document.querySelector(".default-v").innerText = "0";
                         document.querySelector(".total-val").innerText = "0";
+                    }
+                    
+                    function decFont(){
+                        font --;
+                        document.querySelectorAll(".equal, .total-val, .result-val").forEach(function(classFont){
+                            classFont.style.fontSize = font + "px";
+                        })
+                    }
+
+                    if(document.querySelector("#result").offsetWidth >= 371){
+                        decFont();
+                    }
+                    
+                    if(document.querySelector(".width-res").offsetWidth >= 371){
+                        decFont();
                     }
                     
                 }
